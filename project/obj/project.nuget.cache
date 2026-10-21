@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "J2vvSCuXwyM=",
+  "success": true,
+  "projectFilePath": "/home/vadim/devProjects/csharp/111_Projektleistung/project/Project.csproj",
+  "expectedPackageFiles": [
+    "/home/vadim/.nuget/packages/microsoft.aspnetcore.app.ref/10.0.12/microsoft.aspnetcore.app.ref.10.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
