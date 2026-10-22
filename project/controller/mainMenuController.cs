@@ -1,7 +1,7 @@
-namespace Project.Controller;
+namespace Controller;
 using Project.View;
 
-public class MainḾenuController {
+public class MainMenuController {
 	MainMenuView mainMenu = new MainMenuView();
 	public Boolean isGameStarted;
 
