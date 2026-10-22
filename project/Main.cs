@@ -1,5 +1,5 @@
+using Project.Controller;
 using Project.View;
-
 class MainProgram {
 
 	static void Main() {
