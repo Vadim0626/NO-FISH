@@ -12,12 +12,14 @@ namespace test {
 		}
 	
 		public void printMenu() {
-			Console.WriteLine($"\r {showSelected} {selected}"); 
+			Console.WriteLine($"\r {showSelected} {name}"); 
 	}
 
 	class MainProgram {
 
-		static void Main() {	
+		static void Main() {
+			int startCol = Console.CursorLeft;
+			int startRow = Console.CursorTop;
 			ConsoleKeyInfo keyInfo;
 			int selectedIndex = 0;
 			testClass class1 = new("Main Menu", true);
@@ -31,15 +33,22 @@ namespace test {
 			class2.printMenu();
 			class3.printMenu();
 			do {
-				keyInfo = Console.ReadKey();
+				keyInfo = Console.ReadKey(false);
+					if (keyInfo.Key == ConsoleKey.DownArrow) {
+					menus[selectedIndex].selected = false;
+					if(selectedIndex + 1 > menus.Count -1) {
+						selectedIndex = 0;
+					}
+					else {
+						selectedIndex++;
+					}
+					menus[selectedIndex].selected = true;
+					}
+				Console.SetCursorPosition(startCol, startRow);
 				class1.printMenu();
 				class2.printMenu();
 				class3.printMenu();
-				if (keyInfo.Key == ConsoleKey.DownArrow) {
-					menus[selectedIndex].selected = false;
-					selectedIndex++;
-					menus[selectedIndex].selected = true;
-				}
+
 				} while(keyInfo.Key != ConsoleKey.Enter);
 			}
 
