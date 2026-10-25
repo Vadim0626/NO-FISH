@@ -22,34 +22,57 @@ namespace test {
 			int startRow = Console.CursorTop;
 			ConsoleKeyInfo keyInfo;
 			int selectedIndex = 0;
-			testClass class1 = new("Main Menu", true);
+
+			testClass class1 = new("Start the Game!", true);
 			testClass class2 = new("Options", false);
 			testClass class3 = new("Quit", false);
 			List<testClass> menus = new List<testClass>();
+
 			menus.Add(class1);
 			menus.Add(class2);
 			menus.Add(class3);
+			// Initial printing of the menus.
 			class1.printMenu();
 			class2.printMenu();
 			class3.printMenu();
 			do {
 				keyInfo = Console.ReadKey(false);
-					if (keyInfo.Key == ConsoleKey.DownArrow) {
-					menus[selectedIndex].selected = false;
-					if(selectedIndex + 1 > menus.Count -1) {
-						selectedIndex = 0;
-					}
-					else {
-						selectedIndex++;
-					}
-					menus[selectedIndex].selected = true;
-					}
+				if (keyInfo.Key == ConsoleKey.DownArrow) {
+					handleDownInput(ref menus, ref selectedIndex);	
+				}
+				if (keyInfo.Key == ConsoleKey.UpArrow) {
+					handleUpInput(ref menus, ref selectedIndex);
+				}
 				Console.SetCursorPosition(startCol, startRow);
 				class1.printMenu();
 				class2.printMenu();
 				class3.printMenu();
 
 				} while(keyInfo.Key != ConsoleKey.Enter);
+			switch(selectedIndex) {
+				case 0:
+					gameSelected();
+					break;
+				case 1: 
+					optionSelected();
+					break;
+				case 2:
+					quitSelected();
+					break;
+			}
+
+			static void handleDownInput(ref List<testClass> t, ref int index) {
+				t[index].selected = false;
+				Boolean nextIndexBiggerThanCount = index + 1 > t.Count - 1;
+				index = nextIndexBiggerThanCount ? index = 0 : index += 1;
+				t[index].selected = true;
+			}
+
+			static void handleUpInput(ref List<testClass> t, ref int index) {
+				t[index].selected = false; 
+				Boolean nextIndexLessThanCount = index - 1 > t.Count - 1;
+				index = nextIndexLessThanCount ? index = t.Count - 1 : index -= 1;
+				t[index].selected = true;
 			}
 
 			static void optionSelected() {
@@ -64,6 +87,7 @@ namespace test {
 			}
 
 	}
+}
 }
 }
 
