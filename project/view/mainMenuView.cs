@@ -25,8 +25,8 @@ class MainMenuView {
 
 	//TODO: Figure out how to let MainMenuView update attributes it has inherited
 	public void updateSelected(int cur, int prev) {
-		options[cur]._selected = true;
-		options[prev]._selected = false;
+		options[cur].Selected = true;
+		options[prev].Selected = false;
 	}
 
 	// Check if the index is still in range of the List
