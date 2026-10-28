@@ -5,11 +5,13 @@ namespace Project.View;
 class MainMenuView {
 
 	private List<menuModel> options = new(); 
+	private List<SettingsModel> settings = new();
 
 	public MainMenuView() {
 		options.Add(new menuModel("Start", true));
 		options.Add(new menuModel("Options"));
 		options.Add(new menuModel("Quit"));
+		settings.Add(new SettingsModel("Enable Devmode"));
 	}
 
 	public void showMenu() {
@@ -19,10 +21,11 @@ class MainMenuView {
 			
 	}
 
+	// TODO: Add placeholder settings menu that will return back to main menu once the option has been selected.
 	public void showSettings() {
+		
 	}
 
-	//TODO: Figure out how to let MainMenuView update attributes it has inherited
 	public void updateSelected(int current) {
 		options[current].Selected = !options[current].Selected;
 	}
