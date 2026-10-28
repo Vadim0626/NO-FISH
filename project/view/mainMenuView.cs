@@ -13,7 +13,6 @@ class MainMenuView {
 	}
 
 	public void showMenu() {
-		Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop);
 		foreach (menuModel opt in options) {
 			opt.printOption();
 		}
@@ -24,9 +23,8 @@ class MainMenuView {
 	}
 
 	//TODO: Figure out how to let MainMenuView update attributes it has inherited
-	public void updateSelected(int cur, int prev) {
-		options[cur].Selected = true;
-		options[prev].Selected = false;
+	public void updateSelected(int current) {
+		options[current].Selected = !options[current].Selected;
 	}
 
 	// Check if the index is still in range of the List
