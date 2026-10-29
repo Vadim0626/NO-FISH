@@ -11,7 +11,7 @@ class MainMenuView {
 		options.Add(new menuModel("Start", true));
 		options.Add(new menuModel("Options"));
 		options.Add(new menuModel("Quit"));
-		settings.Add(new SettingsModel("Enable Devmode"));
+		settings.Add(new SettingsModel("Enable Devmode", true));
 	}
 
 	public void showMenu() {
@@ -23,7 +23,8 @@ class MainMenuView {
 
 	// TODO: Add placeholder settings menu that will return back to main menu once the option has been selected.
 	public void showSettings() {
-		
+		Console.WriteLine($"=== Settings Menu: === \n");
+		settings[0].printOption();
 	}
 
 	public void updateSelected(int current) {

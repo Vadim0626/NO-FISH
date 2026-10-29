@@ -1,15 +1,16 @@
 namespace Controller;
 using Project.View;
 
-//TODO: Figure out how to solve ref problem
 public class MainMenuController {
 
 	private MainMenuView _menuView { get; } = new MainMenuView();
 	private int _menuIndex { get; set; } = 0;
+	private int _left { get; } = Console.CursorLeft;
+	private int _top { get; } = Console.CursorTop; 
+	private ConsoleKeyInfo keyInfo { get; set; }
+
 	
 	public void startMenu() {
-		int left = Console.CursorLeft;
-		int top = Console.CursorTop;
 		_menuView.showMenu();
 		ConsoleKeyInfo keyInfo;
 
@@ -21,7 +22,7 @@ public class MainMenuController {
 			if (keyInfo.Key == ConsoleKey.UpArrow) {
 				handleUpInput(_menuIndex);
 			}
-			Console.SetCursorPosition(left, top);
+			Console.SetCursorPosition(_left, _top);
 			_menuView.showMenu();
 		}
 		while (keyInfo.Key != ConsoleKey.Enter);
@@ -32,6 +33,7 @@ public class MainMenuController {
 				break;
 			case 1: 
 				//Show Settings
+				controlSettings();	
 				break;
 			case 2: 
 				//End the Application
@@ -56,7 +58,7 @@ public class MainMenuController {
 	}
 	
 	public int checkIndex(int i) {
-		Boolean isIndexInBounds = _menuView.validateIndex(i); 
+		bool isIndexInBounds = _menuView.validateIndex(i); 
 		if(i >= 1 && !isIndexInBounds) {
 			i = 0;
 		}
@@ -64,6 +66,26 @@ public class MainMenuController {
 			i = _menuView.getListLength(); 
 		}
 		return i;
+	}
+
+	public void controlSettings() {
+		bool returnSelected = false;
+		_menuIndex = 0;
+		Console.SetCursorPosition(_left, _top);
+		for(int i = 0; i <= _menuView.getListLength(); i++) {
+			Console.WriteLine($"\r                        ");
+		}
+		Console.SetCursorPosition(_left,_top);
+		_menuView.showSettings();
+		while(!returnSelected) {
+			keyInfo = Console.ReadKey(false);
+			Console.SetCursorPosition(_left, _top);
+			_menuView.showSettings();
+			if(keyInfo.Key == ConsoleKey.Enter) {
+				Console.WriteLine("Enter has been selected");
+				break;
+			}
+		}
 	}
 
 	public void toggleSelected(int ind) {
