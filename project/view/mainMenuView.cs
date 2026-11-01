@@ -1,38 +1,45 @@
 using Model;
-using System.Collections;
 namespace Project.View;
 
 class MainMenuView {
 
-	private List<menuModel> options = new(); 
-	private List<SettingsModel> settings = new();
+	private List<menuModel> _menu = new(); 
+	public List<menuModel> Menu {
+		get { return _menu; }
+		set { _menu = value; }
+	}
+	private List<SettingsModel> _settings = new();
+	public List<SettingsModel> Settings {
+		get { return _settings; }
+		set { _settings = value; }
+	}
 
 	public MainMenuView() {
-		options.Add(new menuModel("Start", true));
-		options.Add(new menuModel("Options"));
-		options.Add(new menuModel("Quit"));
-		settings.Add(new SettingsModel("Enable Devmode", true, true));
+		Menu.Add(new menuModel("Start", true)); 
+		Menu.Add(new menuModel("Options"));
+		Menu.Add(new menuModel("Quit"));
+		Settings.Add(new SettingsModel("Enable Devmode", true));
+		Settings.Add(new SettingsModel("Test Setting 1"));
+		Settings.Add(new SettingsModel("Test Setting 2"));
 	}
 
-	public void showMenu() {
-		foreach (menuModel opt in options) {
+	public void showMenu(IEnumerable<Selectable> options) {
+		foreach (Selectable opt in options) {
 			opt.printOption();
 		}
-			
 	}
 
-	// TODO: Add placeholder settings menu that will return back to main menu once the option has been selected.
 	public void showSettings() {
 		Console.WriteLine($"=== Settings Menu: === \n");
-		settings[0].printOption();
+		Settings[0].printOption();
 	}
 
 	public void updateSelected(int current) {
-		options[current].Selected = !options[current].Selected;
+		Menu[current].Selected = !Menu[current].Selected;
 	}
 
 	// Check if the index is still in range of the List
-	// i can either go into the negatives (i < 0) or beyond the length of the array (i > options.Count - 1)
+	// i can either go into the negatives (i < 0) or beyond the length of the array (i > menu.Count - 1)
 	public bool validateIndex(int i) {
 		if(i < 0 || i > getListLength()) {
 			return false;
@@ -41,6 +48,6 @@ class MainMenuView {
 	}
 
 	public int getListLength() {
-		return options.Count - 1;
+		return Menu.Count - 1;
 	}
 }

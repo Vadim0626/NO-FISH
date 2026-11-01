@@ -1,5 +1,4 @@
 namespace Model;
-using abstractClasses;
 
 class SettingsModel : Selectable {
 	

@@ -10,7 +10,7 @@ public class MainMenuController {
 
 	
 	public void startMenu() {
-		_menuView.showMenu();
+		_menuView.showMenu(_menuView.Menu);
 		ConsoleKeyInfo _keyInfo;
 
 		do {
@@ -22,7 +22,7 @@ public class MainMenuController {
 				handleUpInput(_menuIndex);
 			}
 			Console.SetCursorPosition(_left, _top);
-			_menuView.showMenu();
+			_menuView.showMenu(_menuView.Menu);
 		}
 		while (_keyInfo.Key != ConsoleKey.Enter);
 

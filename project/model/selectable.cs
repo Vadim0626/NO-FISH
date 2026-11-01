@@ -1,4 +1,4 @@
-namespace abstractClasses;
+namespace Model;
 
 public abstract class Selectable {
 
