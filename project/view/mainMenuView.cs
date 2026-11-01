@@ -11,7 +11,7 @@ class MainMenuView {
 		options.Add(new menuModel("Start", true));
 		options.Add(new menuModel("Options"));
 		options.Add(new menuModel("Quit"));
-		settings.Add(new SettingsModel("Enable Devmode", true));
+		settings.Add(new SettingsModel("Enable Devmode", true, true));
 	}
 
 	public void showMenu() {
@@ -33,7 +33,7 @@ class MainMenuView {
 
 	// Check if the index is still in range of the List
 	// i can either go into the negatives (i < 0) or beyond the length of the array (i > options.Count - 1)
-	public Boolean validateIndex(int i) {
+	public bool validateIndex(int i) {
 		if(i < 0 || i > getListLength()) {
 			return false;
 		}

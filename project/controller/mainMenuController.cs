@@ -2,30 +2,29 @@ namespace Controller;
 using Project.View;
 
 public class MainMenuController {
-
 	private MainMenuView _menuView { get; } = new MainMenuView();
 	private int _menuIndex { get; set; } = 0;
 	private int _left { get; } = Console.CursorLeft;
 	private int _top { get; } = Console.CursorTop; 
-	private ConsoleKeyInfo keyInfo { get; set; }
+	private ConsoleKeyInfo _keyInfo { get; set; }
 
 	
 	public void startMenu() {
 		_menuView.showMenu();
-		ConsoleKeyInfo keyInfo;
+		ConsoleKeyInfo _keyInfo;
 
 		do {
-			keyInfo = Console.ReadKey(false);
-			if (keyInfo.Key == ConsoleKey.DownArrow) {
+			_keyInfo = Console.ReadKey(true);
+			if (_keyInfo.Key == ConsoleKey.DownArrow) {
 				handleDownInput(_menuIndex);
 			}
-			if (keyInfo.Key == ConsoleKey.UpArrow) {
+			if (_keyInfo.Key == ConsoleKey.UpArrow) {
 				handleUpInput(_menuIndex);
 			}
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showMenu();
 		}
-		while (keyInfo.Key != ConsoleKey.Enter);
+		while (_keyInfo.Key != ConsoleKey.Enter);
 
 		switch(_menuIndex) {
 			case 0:
@@ -78,10 +77,10 @@ public class MainMenuController {
 		Console.SetCursorPosition(_left,_top);
 		_menuView.showSettings();
 		while(!returnSelected) {
-			keyInfo = Console.ReadKey(false);
+			_keyInfo = Console.ReadKey(true);
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showSettings();
-			if(keyInfo.Key == ConsoleKey.Enter) {
+			if(_keyInfo.Key == ConsoleKey.Enter) {
 				Console.WriteLine("Enter has been selected");
 				break;
 			}
