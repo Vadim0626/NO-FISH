@@ -31,7 +31,8 @@ class MainMenuView {
 
 	public void showSettings() {
 		Console.WriteLine($"=== Settings Menu: === \n");
-		Settings[0].printOption();
+		showMenu(Settings);
+		Console.WriteLine($"\n=== Press Z to return to the Menu ===");
 	}
 
 	public void updateSelected(int current) {

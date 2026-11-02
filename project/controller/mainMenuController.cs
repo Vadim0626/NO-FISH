@@ -56,6 +56,9 @@ public class MainMenuController {
 		_menuIndex = i;
 	}
 	
+	//TODO: Make checkIndex work for both models in the same function
+	// - Have to update getListLength so that its callable by the abstract object
+	// - Potentially making a list attribute in the abstract class could make this possible
 	public int checkIndex(int i) {
 		bool isIndexInBounds = _menuView.validateIndex(i); 
 		if(i >= 1 && !isIndexInBounds) {
@@ -78,11 +81,23 @@ public class MainMenuController {
 		_menuView.showSettings();
 		while(!returnSelected) {
 			_keyInfo = Console.ReadKey(true);
+
+			switch(_keyInfo.Key) {
+				case ConsoleKey.Enter:
+					_menuView.toggleSetting(_menuIndex);
+					break;
+				case ConsoleKey.Z:
+					Console.WriteLine("Returning to Menu");
+					break;
+				case ConsoleKey.DownArrow:
+					handleDownInput(_menuIndex);
+					break;
+				case ConsoleKey.UpArrow:
+					handleUpInput(_menuIndex);
+					break;
+			}
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showSettings();
-			if(_keyInfo.Key == ConsoleKey.Enter) {
-				_menuView.toggleSetting(_menuIndex);
-			}
 		}
 	}
 
