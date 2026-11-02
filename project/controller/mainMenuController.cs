@@ -59,6 +59,8 @@ public class MainMenuController {
 	//TODO: Make checkIndex work for both models in the same function
 	// - Have to update getListLength so that its callable by the abstract object
 	// - Potentially making a list attribute in the abstract class could make this possible
+	// - both validateIndex and getListLength() need to know which List is supposed to be checked / reffered to
+	// - I could introduce an Observer that could pay attention to which game state we currently are in
 	public int checkIndex(int i) {
 		bool isIndexInBounds = _menuView.validateIndex(i); 
 		if(i >= 1 && !isIndexInBounds) {

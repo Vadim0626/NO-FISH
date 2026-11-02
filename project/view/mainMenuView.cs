@@ -52,7 +52,7 @@ class MainMenuView {
 		return true;
 	}
 
-	public int getListLength() {
-		return Menu.Count - 1;
+	public int getListLength(IEnumerable<Selectable> selectedMenu) {
+		return selectedMenu.Count - 1;
 	}
 }
