@@ -6,6 +6,11 @@ public abstract class Selectable {
 	protected bool _selected { get; set; }
 	protected string _showSelected => _selected ? "> " : "  ";
 
+	public bool Selected {
+		get => _selected;
+		set => _selected = value;
+	}
+
 	public Selectable(string n) => _name = n;
 
 	public Selectable(string n, bool s) {

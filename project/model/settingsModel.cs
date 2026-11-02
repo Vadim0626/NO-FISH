@@ -4,6 +4,12 @@ class SettingsModel : Selectable {
 	
 	protected bool _isToggled;
 	protected string _showToggled => _isToggled ? "[ x ]" : "[   ]";
+	public bool Toggled {
+		set { _isToggled = value; }
+		get { return _isToggled; }
+	}
+
+
 
 	public SettingsModel(string n) : base(n) { }
 	public SettingsModel(string n, bool b) : base(n, b) { }

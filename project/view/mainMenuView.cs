@@ -38,6 +38,10 @@ class MainMenuView {
 		Menu[current].Selected = !Menu[current].Selected;
 	}
 
+	public void toggleSetting(int current) {
+		Settings[current].Toggled = !Settings[current].Toggled;
+	}
+
 	// Check if the index is still in range of the List
 	// i can either go into the negatives (i < 0) or beyond the length of the array (i > menu.Count - 1)
 	public bool validateIndex(int i) {

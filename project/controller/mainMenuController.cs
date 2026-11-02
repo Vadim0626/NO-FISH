@@ -81,8 +81,7 @@ public class MainMenuController {
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showSettings();
 			if(_keyInfo.Key == ConsoleKey.Enter) {
-				Console.WriteLine("Enter has been selected");
-				break;
+				_menuView.toggleSetting(_menuIndex);
 			}
 		}
 	}
