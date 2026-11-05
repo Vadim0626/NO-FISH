@@ -1,14 +1,16 @@
 using Model;
+using System.Collections;
+using System.Collections.Generic;
 namespace Project.View;
 
 class MainMenuView {
 
-	private List<menuModel> _menu = new(); 
+	private List<Selectable> _menu = new List<menuModel>(); 
 	public List<menuModel> Menu {
 		get { return _menu; }
 		set { _menu = value; }
 	}
-	private List<SettingsModel> _settings = new();
+	private List<Selectable> _settings = new List<SettingsModel>();
 	public List<SettingsModel> Settings {
 		get { return _settings; }
 		set { _settings = value; }
@@ -35,8 +37,8 @@ class MainMenuView {
 		Console.WriteLine($"\n=== Press Z to return to the Menu ===");
 	}
 
-	public void updateSelected(int current) {
-		Menu[current].Selected = !Menu[current].Selected;
+	public void updateSelected(int current, List<Selectable> selectedMenu) {
+		selectedMenu[current].Selected = !selectedMenu[current].Selected;
 	}
 
 	public void toggleSetting(int current) {
@@ -45,14 +47,14 @@ class MainMenuView {
 
 	// Check if the index is still in range of the List
 	// i can either go into the negatives (i < 0) or beyond the length of the array (i > menu.Count - 1)
-	public bool validateIndex(int i) {
-		if(i < 0 || i > getListLength()) {
+	public bool validateIndex(int i, List<Selectable> selectedMenu) {
+		if(i < 0 || i > getListLength(selectedMenu)) {
 			return false;
 		}
 		return true;
 	}
 
-	public int getListLength(IEnumerable<Selectable> selectedMenu) {
+	public int getListLength(List<Selectable> selectedMenu) {
 		return selectedMenu.Count - 1;
 	}
 }

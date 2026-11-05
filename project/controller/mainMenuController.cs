@@ -1,5 +1,6 @@
 namespace Controller;
 using Project.View;
+using Model;
 
 public class MainMenuController {
 	private MainMenuView _menuView { get; } = new MainMenuView();
@@ -7,10 +8,12 @@ public class MainMenuController {
 	private int _left { get; } = Console.CursorLeft;
 	private int _top { get; } = Console.CursorTop; 
 	private ConsoleKeyInfo _keyInfo { get; set; }
+	private String _gameState { get; set; } 
 
-	
 	public void startMenu() {
+		_gameState = "Menu";
 		_menuView.showMenu(_menuView.Menu);
+
 		ConsoleKeyInfo _keyInfo;
 
 		do {
@@ -62,18 +65,19 @@ public class MainMenuController {
 	// - both validateIndex and getListLength() need to know which List is supposed to be checked / reffered to
 	// - I could introduce an Observer that could pay attention to which game state we currently are in
 	public int checkIndex(int i) {
-		bool isIndexInBounds = _menuView.validateIndex(i); 
+		bool isIndexInBounds = _menuView.validateIndex(i, getList()); 
 		if(i >= 1 && !isIndexInBounds) {
 			i = 0;
 		}
 		else if (i <= 0 && !isIndexInBounds) {
-			i = _menuView.getListLength(); 
+			i = _menuView.getListLength(getList()); 
 		}
 		return i;
 	}
 
 	public void controlSettings() {
 		bool returnSelected = false;
+		_gameState = "Settings";
 		_menuIndex = 0;
 		Console.SetCursorPosition(_left, _top);
 		for(int i = 0; i <= _menuView.getListLength(); i++) {
@@ -104,7 +108,16 @@ public class MainMenuController {
 	}
 
 	public void toggleSelected(int ind) {
-		_menuView.updateSelected(ind);
+		_menuView.updateSelected(ind, getList());
+	}
+
+	public List<Selectable> getList() {
+		if(_gameState == "Menu") {
+			return _menuView.Menu;
+		} 
+		else {
+			return _menuView.Settings;
+		}
 	}
 
 }
