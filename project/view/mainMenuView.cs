@@ -1,17 +1,16 @@
 using Model;
 using System.Collections;
-using System.Collections.Generic;
 namespace Project.View;
 
 class MainMenuView {
 
-	private List<Selectable> _menu = new List<menuModel>(); 
-	public List<menuModel> Menu {
+	private List<Selectable> _menu = new(); 
+	public List<Selectable> Menu {
 		get { return _menu; }
 		set { _menu = value; }
 	}
-	private List<Selectable> _settings = new List<SettingsModel>();
-	public List<SettingsModel> Settings {
+	private List<Selectable> _settings = new(); 
+	public List<Selectable> Settings {
 		get { return _settings; }
 		set { _settings = value; }
 	}
@@ -25,7 +24,7 @@ class MainMenuView {
 		Settings.Add(new SettingsModel("Test Setting 2"));
 	}
 
-	public void showMenu(IEnumerable<Selectable> options) {
+	public void showMenu(List<Selectable> options) {
 		foreach (Selectable opt in options) {
 			opt.printOption();
 		}
@@ -42,7 +41,9 @@ class MainMenuView {
 	}
 
 	public void toggleSetting(int current) {
-		Settings[current].Toggled = !Settings[current].Toggled;
+		if(Settings[current] is SettingsModel setting) {
+			setting.Toggled = !setting.Toggled;
+		}
 	}
 
 	// Check if the index is still in range of the List
