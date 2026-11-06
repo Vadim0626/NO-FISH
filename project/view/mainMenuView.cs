@@ -1,15 +1,16 @@
 using Model;
+using System.Collections;
 namespace Project.View;
 
 class MainMenuView {
 
-	private List<menuModel> _menu = new(); 
-	public List<menuModel> Menu {
+	private List<Selectable> _menu = new(); 
+	public List<Selectable> Menu {
 		get { return _menu; }
 		set { _menu = value; }
 	}
-	private List<SettingsModel> _settings = new();
-	public List<SettingsModel> Settings {
+	private List<Selectable> _settings = new(); 
+	public List<Selectable> Settings {
 		get { return _settings; }
 		set { _settings = value; }
 	}
@@ -23,7 +24,7 @@ class MainMenuView {
 		Settings.Add(new SettingsModel("Test Setting 2"));
 	}
 
-	public void showMenu(IEnumerable<Selectable> options) {
+	public void showMenu(List<Selectable> options) {
 		foreach (Selectable opt in options) {
 			opt.printOption();
 		}
@@ -35,24 +36,26 @@ class MainMenuView {
 		Console.WriteLine($"\n=== Press Z to return to the Menu ===");
 	}
 
-	public void updateSelected(int current) {
-		Menu[current].Selected = !Menu[current].Selected;
+	public void updateSelected(int current, List<Selectable> selectedMenu) {
+		selectedMenu[current].Selected = !selectedMenu[current].Selected;
 	}
 
 	public void toggleSetting(int current) {
-		Settings[current].Toggled = !Settings[current].Toggled;
+		if(Settings[current] is SettingsModel setting) {
+			setting.Toggled = !setting.Toggled;
+		}
 	}
 
 	// Check if the index is still in range of the List
 	// i can either go into the negatives (i < 0) or beyond the length of the array (i > menu.Count - 1)
-	public bool validateIndex(int i) {
-		if(i < 0 || i > getListLength()) {
+	public bool validateIndex(int i, List<Selectable> selectedMenu) {
+		if(i < 0 || i > getListLength(selectedMenu)) {
 			return false;
 		}
 		return true;
 	}
 
-	public int getListLength(IEnumerable<Selectable> selectedMenu) {
+	public int getListLength(List<Selectable> selectedMenu) {
 		return selectedMenu.Count - 1;
 	}
 }
