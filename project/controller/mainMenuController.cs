@@ -17,10 +17,6 @@ public class MainMenuController {
 	public void startMenu() {
 		_gameState = gameStates.Menu;
 		_menuView.showMenu(_menuView.Menu);
-
-		ConsoleKeyInfo _keyInfo;
-
-		Console.Write("DEBUG OUTPUT of _menuIndex: " + _menuIndex);
 		do {
 			_keyInfo = Console.ReadKey(true);
 			if (_keyInfo.Key == ConsoleKey.DownArrow) {
@@ -31,13 +27,11 @@ public class MainMenuController {
 			}
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showMenu(_menuView.Menu);
-			Console.Write("DEBUG OUTPUT of _menuIndex: " + _menuIndex);
+			Console.WriteLine($"Debug of menuIndex: {_menuIndex}");
 		}
 		while (_keyInfo.Key != ConsoleKey.Enter);
-
 		switch(_menuIndex) {
 			case 0:
-				//Start game
 				break;
 			case 1: 
 				//Show Settings
@@ -65,11 +59,6 @@ public class MainMenuController {
 		_menuIndex = i;
 	}
 	
-	//TODO: Make checkIndex work for both models in the same function
-	// - Have to update getListLengtsh so that its callable by the abstract object
-	// - Potentially making a list attribute in the abstract class could make this possible
-	// - both validateIndex and getListLength() need to know which List is supposed to be checked / reffered to
-	// - I could introduce an Observer that could pay attention to which game state we currently are in
 	public int checkIndex(int i) {
 		bool isIndexInBounds = _menuView.validateIndex(i, getList()); 
 		if(i >= 1 && !isIndexInBounds) {
@@ -82,22 +71,17 @@ public class MainMenuController {
 	}
 
 	public void controlSettings() {
-		bool returnSelected = false;
+		int savedIndex = _menuIndex;
 		_gameState = gameStates.Settings;
 		_menuIndex = 0;
 		clearMenu();
 		Console.SetCursorPosition(_left,_top);
 		_menuView.showSettings();
-		while(!returnSelected) {
+		while(_keyInfo.Key != ConsoleKey.Z) {
 			_keyInfo = Console.ReadKey(true);
-
 			switch(_keyInfo.Key) {
 				case ConsoleKey.Enter:
 					_menuView.toggleSetting(_menuIndex);
-					break;
-				case ConsoleKey.Z:
-					clearMenu();
-					startMenu();
 					break;
 				case ConsoleKey.DownArrow:
 					handleDownInput(_menuIndex);
@@ -106,9 +90,14 @@ public class MainMenuController {
 					handleUpInput(_menuIndex);
 					break;
 			}
-			Console.SetCursorPosition(_left, _top);
+			Console.SetCursorPosition(_left,_top);
 			_menuView.showSettings();
-		}
+		} 
+		clearMenu();
+		// Rudimentary fix, to avoid _menuIndex being disjointed after leaving the settings menu, better solution would most likely be to track them with separate vars but this will do for now :D 
+		_menuIndex = savedIndex;
+		startMenu();
+
 	}
 
 	public void toggleSelected(int ind) {
@@ -130,6 +119,11 @@ public class MainMenuController {
 			Console.Write(new string(' ', Console.WindowWidth));
 		}
 		Console.SetCursorPosition(_left, _top);
+	}
+
+	public void exampleFunc() {
+		clearMenu();
+		Console.WriteLine("Hello, the current index is: " + _menuIndex);
 	}
 
 }
