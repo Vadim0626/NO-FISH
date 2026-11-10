@@ -27,11 +27,11 @@ public class MainMenuController {
 			}
 			Console.SetCursorPosition(_left, _top);
 			_menuView.showMenu(_menuView.Menu);
-			Console.WriteLine($"Debug of menuIndex: {_menuIndex}");
 		}
 		while (_keyInfo.Key != ConsoleKey.Enter);
 		switch(_menuIndex) {
 			case 0:
+				//Start the Game
 				break;
 			case 1: 
 				//Show Settings
@@ -120,10 +120,4 @@ public class MainMenuController {
 		}
 		Console.SetCursorPosition(_left, _top);
 	}
-
-	public void exampleFunc() {
-		clearMenu();
-		Console.WriteLine("Hello, the current index is: " + _menuIndex);
-	}
-
 }
