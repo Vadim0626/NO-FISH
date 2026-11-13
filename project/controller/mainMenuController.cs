@@ -9,6 +9,7 @@ public class MainMenuController {
 	}
 	private MainMenuView _menuView { get; } = new MainMenuView();
 	private int _menuIndex { get; set; } = 0;
+	private int _settingsIndex { get; set; } = 0;
 	private int _left { get; } = Console.CursorLeft;
 	private int _top { get; } = Console.CursorTop; 
 	private ConsoleKeyInfo _keyInfo { get; set; }
@@ -73,7 +74,7 @@ public class MainMenuController {
 	public void controlSettings() {
 		int savedIndex = _menuIndex;
 		_gameState = gameStates.Settings;
-		_menuIndex = 0;
+		_menuIndex = _settingsIndex;
 		clearMenu();
 		Console.SetCursorPosition(_left,_top);
 		_menuView.showSettings();
@@ -95,6 +96,7 @@ public class MainMenuController {
 		} 
 		clearMenu();
 		// Rudimentary fix, to avoid _menuIndex being disjointed after leaving the settings menu, better solution would most likely be to track them with separate vars but this will do for now :D 
+		_settingsIndex = _menuIndex;
 		_menuIndex = savedIndex;
 		startMenu();
 
