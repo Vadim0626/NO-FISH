@@ -35,7 +35,6 @@ public class MainMenuController {
 				clearMenu();
 				return 1;
 			case 1: 
-				//Show Settings
 				controlSettings();	
 				break;
 			case 2: 
