@@ -15,7 +15,7 @@ public class MainMenuController {
 	private ConsoleKeyInfo _keyInfo { get; set; }
 	private gameStates _gameState { get; set; } = gameStates.Menu;
 
-	public void startMenu() {
+	public int start() {
 		_gameState = gameStates.Menu;
 		_menuView.showMenu(_menuView.Menu);
 		do {
@@ -32,16 +32,17 @@ public class MainMenuController {
 		while (_keyInfo.Key != ConsoleKey.Enter);
 		switch(_menuIndex) {
 			case 0:
-				//Start the Game
-				break;
+				clearMenu();
+				return 1;
 			case 1: 
 				//Show Settings
 				controlSettings();	
 				break;
 			case 2: 
-				//End the Application
-				break;
+				clearMenu();
+				return 3;
 		}
+		return -1;
 	}
 	// set Selected of current index to false, so upcoming index can be set to true
 	public void handleDownInput(int i) {
@@ -98,7 +99,7 @@ public class MainMenuController {
 		// Rudimentary fix, to avoid _menuIndex being disjointed after leaving the settings menu, better solution would most likely be to track them with separate vars but this will do for now :D 
 		_settingsIndex = _menuIndex;
 		_menuIndex = savedIndex;
-		startMenu();
+		start();
 
 	}
 

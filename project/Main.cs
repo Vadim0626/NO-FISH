@@ -3,10 +3,11 @@ using Model;
 class MainProgram {
 
 	static void Main() {
-		MainMenuController controller = new MainMenuController();
-		controller.startMenu();
-
+		GameLogicController controller = new GameLogicController();
+		controller.start();
+		
 	}
 }
+
 
 
