@@ -6,12 +6,19 @@ class Player : ICanAttack {
 	public int maxHealth { get; }
 	public int strength { get; set; }
 	private int critRate { get; set; }
+	private int gold { get; set; }
+	private List<String> _inventory = new();
+	public List<String> Inventory {
+		get { return Inventory; }
+		set { _inventory = value; }
+	}
 
 	public Player(int hp, int str, int maxhp, int cr) {
 		health = hp;
 		strength = str;
 		maxHealth = maxhp;
 		critRate = cr;
+		gold = 50;
 	}
 
 	public void attack(ICanAttack attackedcharacter) {

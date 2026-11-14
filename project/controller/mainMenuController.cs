@@ -42,7 +42,7 @@ public class MainMenuController {
 				clearMenu();
 				return 3;
 		}
-		return -1;
+		return 0;
 	}
 	// set Selected of current index to false, so upcoming index can be set to true
 	public void handleDownInput(int i) {
@@ -95,12 +95,10 @@ public class MainMenuController {
 			Console.SetCursorPosition(_left,_top);
 			_menuView.showSettings();
 		} 
-		clearMenu();
 		// Rudimentary fix, to avoid _menuIndex being disjointed after leaving the settings menu, better solution would most likely be to track them with separate vars but this will do for now :D 
 		_settingsIndex = _menuIndex;
 		_menuIndex = savedIndex;
-		start();
-
+		clearMenu();
 	}
 
 	public void toggleSelected(int ind) {

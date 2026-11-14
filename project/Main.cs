@@ -2,10 +2,10 @@ using Controller;
 using Model;
 class MainProgram {
 
+	private static GameLogicController controller = new GameLogicController();
+
 	static void Main() {
-		GameLogicController controller = new GameLogicController();
 		controller.start();
-		
 	}
 }
 
