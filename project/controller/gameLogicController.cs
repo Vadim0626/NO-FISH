@@ -2,15 +2,16 @@ namespace Controller;
 
 class GameLogicController {
 
-	private	MainMenuController menu = new MainMenuController();
+	private	IControllable menu = new MainMenuController();
+	private IControllable exploration = new ExplorationController();
 	private int _gameStatus { get; set; } = 0;
-	private bool _isGameOver => _gameStatus == 3 || _gameStatus == 1;
+	private bool _isGameOver => _gameStatus == 3;
 
 	enum gameStatus {
-		Menu = 0,
-		Exploration = 1,
-		Fighting = 2,
-		GameOver = 3
+		Menu,
+		Exploration,
+		Fighting,
+		GameOver
 	}	
 
 	public void start() {
@@ -28,7 +29,7 @@ class GameLogicController {
 			      _gameStatus = menu.start();
 			      break;
 			case (int)gameStatus.Exploration:
-			      Console.WriteLine("DEBUG: Game (and exploration) has started");
+			      _gameStatus = exploration.start();
 			      break;
 			case (int)gameStatus.Fighting:
 			      Console.WriteLine("DEBUG: Fighting has Begun");

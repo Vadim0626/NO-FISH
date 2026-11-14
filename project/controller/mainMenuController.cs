@@ -2,7 +2,7 @@ namespace Controller;
 using Project.View;
 using Model;
 
-public class MainMenuController {
+public class MainMenuController : IControllable {
 	enum gameStates {
 		Menu,
 		Settings
