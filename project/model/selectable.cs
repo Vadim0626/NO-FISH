@@ -3,7 +3,7 @@ namespace Model;
 public abstract class Selectable {
 
 	protected string _name { get; }
-	protected bool _selected { get; set; }
+	protected bool _selected; 
 	protected string _showSelected => _selected ? "> " : "  ";
 
 	public bool Selected {
