@@ -10,7 +10,7 @@ class ExplorationView {
 
 	// Initialise area 1
 	static ExplorationEvent e1 = new("Fight a Fish!", 60, "Fight", "fight1");
-	static ExplorationEvent e2 = new("FInd a healing item", 30, "Scavenging", "scavHeal");
+	static ExplorationEvent e2 = new("Find a healing item", 30, "Scavenging", "scavHeal");
 	static ExplorationEvent e3 = new("Find a pile of gold", 10, "Scavenging", "scavGold");
 	static ExplorationModel area1 = new("The Beach", e1, e2, e3, true);
 
@@ -28,17 +28,35 @@ class ExplorationView {
 	}
 
 	public void showExploration() {
+		Console.WriteLine("=== Select an Area: ===");
 		foreach (ExplorationModel area in areas) {
-			if(area.Selected) {
-				Console.Write("=>");
-			}
-			Console.WriteLine(area.AreaName);
-
+			string prefix = area.Selected ? "=>" : " ";
+			Console.WriteLine($"{prefix}{area.AreaName}".PadRight(Console.WindowWidth - 1));
 			if(area.Selected) {
 				area.printEvents();
 			}
 		}
-		Console.WriteLine($"\n <== Press Enter to select an Event ==>");
+		Console.WriteLine("=== Press Enter to select an Area! ===");
 	}
+
+	public ExplorationModel getArea(int i) {
+		return areas[i];
+	}
+
+	public bool validateIndex(int i) {
+		if(i < 0 || i > areas.Count - 1) {
+			return false;
+		}
+		return true;
+	}
+
+	public void updateSelected(int i) {
+		areas[i].Selected = !areas[i].Selected;
+	}
+
+	public int getListLength() {
+		return areas.Count - 1;
+	}
+
 		
 }

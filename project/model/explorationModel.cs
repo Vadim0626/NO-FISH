@@ -12,6 +12,7 @@ class ExplorationModel {
 
 	public bool Selected { 
 		get => _selected; 
+		set => _selected = value;
 	}
 
 	private List<ExplorationEvent> events = new();
@@ -30,7 +31,7 @@ class ExplorationModel {
 
 	public void printEvents() {
 		foreach ( ExplorationEvent e in events ) {
-			Console.WriteLine($"{e.Description} Chance: {e.Chance}");
+			Console.WriteLine($"-- {e.Description.PadRight(30)} (Chance: {e.Chance}%)".PadRight(Console.WindowWidth - 1));
 		}
 	}
 
