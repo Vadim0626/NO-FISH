@@ -35,4 +35,12 @@ class ExplorationModel {
 		}
 	}
 
+	public ExplorationEvent getEvent(int i) {
+		return Events[i];
+	}
+
+	public int getEventLength() {
+		return Events.Count - 1;
+	}
+
 }

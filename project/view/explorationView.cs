@@ -58,5 +58,4 @@ class ExplorationView {
 		return areas.Count - 1;
 	}
 
-		
 }

@@ -7,6 +7,10 @@ class Player : ICanAttack {
 	public int strength { get; set; }
 	private int critRate { get; set; }
 	private int gold { get; set; }
+	public int Gold {
+		get => gold;
+		set => gold = value;
+	}
 	private List<String> _inventory = new();
 	public List<String> Inventory {
 		get { return Inventory; }
@@ -40,6 +44,21 @@ class Player : ICanAttack {
 			health = healedHealth;
 		}
 	}
+
+	public void give(string item) {
+		Inventory.Add(item);
+	}
+
+	public void remove(string item) {
+		foreach(string i in _inventory) {
+			if(i == item) {
+				Inventory.Remove(item);
+				break;
+			}
+		}
+	}
+}
+
 		
 
-}
+

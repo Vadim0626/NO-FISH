@@ -1,13 +1,22 @@
-namespace Controller; 
+namespace Controller;
 using Project.View;
+using Model;
 
 class ExplorationController : IControllable {
 
 	private ExplorationView explore = new();
+	private string? _explorationEventType { get; set; }
+	private string? _explorationEventLabel { get; set; }
 	private int _left { get; } = Console.CursorLeft;
 	private int _top { get; } = Console.CursorTop; 
 	private int _explorationIndex {get; set;} = 0;
 	private ConsoleKeyInfo _keyInfo { get; set;}
+//	private GameLogicController gameLogic = new();
+//	private Player player; 
+
+	public ExplorationController() {
+//		player = gameLogic.getPlayer();
+	}
 
 	public int start() {
 		Console.SetCursorPosition(_left, _top);
@@ -25,13 +34,27 @@ class ExplorationController : IControllable {
 			explore.showExploration();
 		}
 		while(_keyInfo.Key != ConsoleKey.Enter);
+		rollEvent(_explorationIndex);
+
+		clearMenu();
+		switch (_explorationEventType) {
+			case "Fight":
+				Console.WriteLine("Fighting!");
+				break;
+			case "Scavenging":
+				initiateScavenging();
+				break;
+			case "Escape":
+				Console.WriteLine("Escaping");
+				break;
+		}
 		return 3;
 	}
 
 	public void clearMenu() {
 		Console.SetCursorPosition(_left, _top);
 		for(int i = 0; i < 20; i++) {
-			Console.Write(new string(' ', Console.WindowWidth));
+			Console.Write(new string(' ', Console.WindowWidth - 1));
 		}
 		Console.SetCursorPosition(_left, _top);
 	}
@@ -66,4 +89,53 @@ class ExplorationController : IControllable {
 		}
 		return i;
 	}
+
+	public void rollEvent(int exploreIndex) {
+		ExplorationModel selectedArea = explore.getArea(exploreIndex);
+		Random randNum = new();
+		int rolledNum = randNum.Next(1, 101);
+		int eventChance = 0;
+		ExplorationEvent currentEvent = selectedArea.getEvent(0);
+
+		for(int i = 0; i < selectedArea.getEventLength(); i++) {
+			currentEvent = selectedArea.getEvent(i);
+			int eventInterval = 0;
+			eventChance += currentEvent.Chance;
+
+			// if eventChance = 60 then eventInterval = 100 - 60 (40)
+			// then eventInterval = 100 - 40 = 60 to get the Actual Interval that rolledNum should be in for the Event to trigger;
+
+			eventInterval = 100 - eventChance;
+			eventInterval = 100 - eventInterval;
+
+			if(rolledNum <= eventInterval) {
+				break;
+			}
+		}
+		_explorationEventType = currentEvent.EventType;
+		_explorationEventLabel = currentEvent.EventLabel;
+	}
+
+	public void initiateScavenging() {
+		switch (_explorationEventLabel) {
+			case "scavHeal":
+//				player.give("Healing Potion");
+				Console.WriteLine("Found a Healing Potion!");
+				break;
+			case "scavHeal2":
+//				player.give("Healing Potion");
+//				player.give("Healing Potion");
+				Console.WriteLine("Found 2 Healing Potions!");
+				break;
+			case "scavGold":
+//				player.Gold += 50;
+				Console.WriteLine("Found a small pile of 50 gold!");
+				break;
+			case "scavGold2":
+//				player.Gold += 150;
+				Console.WriteLine("Found a large pile of gold!");
+				break;
+		}
+	}
+
 }
