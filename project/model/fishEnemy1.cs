@@ -28,9 +28,10 @@ class FishEnemy : ICanAttack {
 		int miss = missChance.Next(1, 101);
 		if(miss <= 75) {
 			attackedCharacter.health -= strength;
+			Console.WriteLine($"\nPlayer took {strength} damage!");
 		}
 		else {
-			Console.WriteLine("Attack missed!");
+			Console.WriteLine("\nAttack missed! Player took no damage");
 		}
 	}
 }

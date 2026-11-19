@@ -40,7 +40,7 @@ class ExplorationModel {
 	}
 
 	public int getEventLength() {
-		return Events.Count - 1;
+		return Events.Count;
 	}
 
 }

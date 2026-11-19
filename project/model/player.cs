@@ -3,8 +3,15 @@ namespace Model;
 class Player : ICanAttack {
 
 	public int health { get; set; }
+	public int Health {
+		get => health;
+	}
 	public int maxHealth { get; }
 	public int strength { get; set; }
+	public int Strength {
+		get => strength;
+	}
+
 	private int critRate { get; set; }
 	private int gold { get; set; }
 	public int Gold {
@@ -13,7 +20,7 @@ class Player : ICanAttack {
 	}
 	private List<String> _inventory = new();
 	public List<String> Inventory {
-		get { return Inventory; }
+		get { return _inventory; }
 		set { _inventory = value; }
 	}
 
@@ -30,8 +37,10 @@ class Player : ICanAttack {
 		int criticalHit = crit.Next(1, 101);
 		if(criticalHit >= 100 - critRate) {
 			Console.WriteLine("A critical hit!");
+			Console.WriteLine($"\nDealt {2 * strength} Damage!");
 			attackedcharacter.health -= 2 * strength;
 		} else {
+			Console.WriteLine($"\nDealt {strength} Damage!");
 			attackedcharacter.health -= strength;
 		}
 	}
@@ -50,12 +59,7 @@ class Player : ICanAttack {
 	}
 
 	public void remove(string item) {
-		foreach(string i in _inventory) {
-			if(i == item) {
-				Inventory.Remove(item);
-				break;
-			}
-		}
+		_inventory.Remove(item);
 	}
 }
 

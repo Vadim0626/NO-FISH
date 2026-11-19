@@ -11,11 +11,10 @@ class ExplorationController : IControllable {
 	private int _top { get; } = Console.CursorTop; 
 	private int _explorationIndex {get; set;} = 0;
 	private ConsoleKeyInfo _keyInfo { get; set;}
-//	private GameLogicController gameLogic = new();
-//	private Player player; 
+	private Player player; 
 
-	public ExplorationController() {
-//		player = gameLogic.getPlayer();
+	public ExplorationController(Player p) {
+		player = p;
 	}
 
 	public int start() {
@@ -39,16 +38,14 @@ class ExplorationController : IControllable {
 		clearMenu();
 		switch (_explorationEventType) {
 			case "Fight":
-				Console.WriteLine("Fighting!");
-				break;
+				return 2;
 			case "Scavenging":
 				initiateScavenging();
 				break;
 			case "Escape":
-				Console.WriteLine("Escaping");
-				break;
+				return 2;
 		}
-		return 3;
+		return 1;
 	}
 
 	public void clearMenu() {
@@ -99,16 +96,8 @@ class ExplorationController : IControllable {
 
 		for(int i = 0; i < selectedArea.getEventLength(); i++) {
 			currentEvent = selectedArea.getEvent(i);
-			int eventInterval = 0;
 			eventChance += currentEvent.Chance;
-
-			// if eventChance = 60 then eventInterval = 100 - 60 (40)
-			// then eventInterval = 100 - 40 = 60 to get the Actual Interval that rolledNum should be in for the Event to trigger;
-
-			eventInterval = 100 - eventChance;
-			eventInterval = 100 - eventInterval;
-
-			if(rolledNum <= eventInterval) {
+			if(rolledNum <= eventChance) {
 				break;
 			}
 		}
@@ -119,23 +108,30 @@ class ExplorationController : IControllable {
 	public void initiateScavenging() {
 		switch (_explorationEventLabel) {
 			case "scavHeal":
-//				player.give("Healing Potion");
+				player.give("Healing Potion");
 				Console.WriteLine("Found a Healing Potion!");
 				break;
 			case "scavHeal2":
-//				player.give("Healing Potion");
-//				player.give("Healing Potion");
+				player.give("Healing Potion");
+				player.give("Healing Potion");
 				Console.WriteLine("Found 2 Healing Potions!");
 				break;
 			case "scavGold":
-//				player.Gold += 50;
+				player.Gold += 50;
 				Console.WriteLine("Found a small pile of 50 gold!");
 				break;
 			case "scavGold2":
-//				player.Gold += 150;
+				player.Gold += 150;
 				Console.WriteLine("Found a large pile of gold!");
 				break;
 		}
+		Console.WriteLine("Press any Key to return");
+		Console.ReadKey(true);
+		clearMenu();
+	}
+
+	public string? getEventLabel() {
+		return _explorationEventLabel;
 	}
 
 }
