@@ -85,7 +85,6 @@ class FightController {
 			fightView.showHealth(player, enemy);
 		}
 		while(!isFightOver);
-		//TODO: make sure this distinguishes between the player death and enemy death
 		if(hasLost) {
 			clearMenu();
 			return 3;
@@ -158,6 +157,7 @@ class FightController {
 				else {	
 					Console.WriteLine("Healed for 5 HP!");
 					player.heal(5);
+					player.remove("Healing Potion");
 					Console.WriteLine("Press any Button to return");
 					Console.ReadKey(true);
 					clearMenu();
